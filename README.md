@@ -57,4 +57,3 @@ Program menggunakan nama mahasiswa sebagai key, jadi pastikan tidak ada nama yan
 Input NIM dan nilai harus berupa angka
 Data hanya tersimpan selama program berjalan (tidak permanen)
 Validasi input masih minimal, jadi pastikan input sesuai format yang diminta
-Claude is AI and can make mistakes. Please double-check responses.
