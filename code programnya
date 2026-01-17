@@ -1,0 +1,137 @@
+# Buat dictionary untuk menyimpan inputan data mahasiswa
+data_mahasiswa = {}
+
+# Buat fungsi tambah_data
+def tambah_data():
+    print("===== Create Data Mahasiswa =====")
+    print("================================")
+
+# Buat fungsi hapus_data
+def hapus_data():
+    print("===== Hapus Data Mahasiswa =====")
+    print("================================")
+    nama = input("Masukkan Nama Mahasiswa\t: ")
+    if nama in data_mahasiswa.keys():
+        del data_mahasiswa[nama]
+        print("\n===== Data mahasiswa berhasil dihapus =====")
+    else:
+        print("\nData {} Tidak Ditemukan".format(nama))
+
+# Buat fungsi ubah_data
+def ubah_data():
+    print("\nMengubah Data Mahasiswa")
+    print("=======================")
+    nama = input("Masukkan Nama Mahasiswa\t: ")
+    if nama in data_mahasiswa.keys():
+        nim = int(input("Masukkan NIM Baru Mahasiswa\t: "))
+        tugas = int(input("Masukkan Nilai Tugas Terbaru\t: "))
+        uts = int(input("Masukkan Nilai UTS Terbaru\t: "))
+        uas = int(input("Masukkan Nilai UAS Terbaru\t: "))
+        hasil = (tugas * 0.3) + (uts * 0.35) + (uas * 0.35)
+        data_mahasiswa[nama] = nim, tugas, uts, uas, hasil
+        print("\n===== Data Mahasiswa berhasil diubah =====")
+    else:
+        print("\nData {} Tidak Ditemukan".format(nama))
+
+# Buat fungsi cari_data
+def cari_data():
+    print("===== Cari Data Mahasiswa =====")
+    print("==============================")
+
+# import data_mahasiswa di folder model yang terdapat daftar_nilai
+from model.daftar_nilai import data_mahasiswa
+
+# Buat fungsi input_data
+def input_data():
+    no = 0
+    jawab = "y"
+    while jawab == "y":
+        nama = input("\nMasukkan Nama Mahasiswa\t: ")
+        nim = int(input("Masukkan NIM Mahasiswa\t: "))
+        tugas = int(input("Masukkan Nilai Tugas\t: "))
+        uts = int(input("Masukkan Nilai UTS\t: "))
+        uas = int(input("Masukkan Nilai UAS\t: "))
+        hasil = (tugas * 0.3) + (uts * 0.35) + (uas * 0.35)
+        data_mahasiswa[nama] = nim, tugas, uts, uas, hasil
+        jawab = input("Tambah data (y/t)?\t: ")
+        no += 1
+
+# import data_mahasiswa di folder model yang terdapat daftar_nilai
+from model.daftar_nilai import data_mahasiswa
+
+# Buat fungsi cetak_daftar_nilai
+def cetak_daftar_nilai():
+    if data_mahasiswa.items():
+        print("=" * 90)
+        print("Daftar Nilai Mahasiswa".center(90))
+        print("=" * 90)
+        print("| No | Nama           | NIM       | TUGAS | UTS | UAS | Nilai Akhir |")
+        print("=" * 90)
+        i = 0
+        for x in data_mahasiswa.items():
+            i += 1
+            print("| {0:2d} | {1:13s} | {2:8d} | {3:5d} | {4:3d} | {5:3d} | {6:11.2f} |"
+                .format(i, x[0], x[1][0], x[1][1], x[1][2], x[1][3], x[1][4]))
+        print("=" * 90)
+    else:
+        print("=" * 90)
+        print("Daftar Nilai".center(90))
+        print("=" * 90)
+        print("| No | Nama | NIM | TUGAS | UTS | UAS | Nilai Akhir |")
+        print("=" * 90)
+        print("| Tidak Ada Data".center(88), "|")
+        print("=" * 90)
+
+# Buat fungsi cetak_hasil_pencarian
+def cetak_hasil_pencarian():
+    nama = input("Masukkan Nama\t: ")
+    if nama in data_mahasiswa.keys():
+        print("=" * 90)
+        print("Daftar Nilai".center(90))
+        print("=" * 90)
+        print("| Nama           | NIM       | TUGAS | UTS | UAS | Nilai Akhir |")
+        print("=" * 90)
+        print("| {0:14s} | {1:8d} | {2:5d} | {3:3d} | {4:3d} | {5:11.2f} |"
+            .format(
+                nama,
+                data_mahasiswa[nama][0],
+                data_mahasiswa[nama][1],
+                data_mahasiswa[nama][2],
+                data_mahasiswa[nama][3],
+                data_mahasiswa[nama][4]
+            ))
+        print("=" * 90)
+    else:
+        print("Datanya {} tidak ada".format(nama))
+
+# Import semua fungsi yang terdapat pada daftar_nilai, input_nilai, view_nilai
+from model.daftar_nilai import tambah_data, ubah_data, hapus_data, cari_data
+from view.input_nilai import input_data
+from view.view_nilai import cetak_daftar_nilai, cetak_hasil_pencarian
+
+# While loop dan If statements
+while True:
+    print('\n======= PROGRAM INPUT DATA MAHASISWA =======')
+    print('============================================')
+    print('\nPilih salah satu menu di bawah ini:')
+    print('====================================')
+    print('\n1. (C)reate \n2. (R)ead \n3. (U)pdate \n4. (D)elete \n5. (S)earch \n6. (Q)uit')
+    x = input('\nMasukkan Pilihan Menu anda\t: ')
+
+    if x.lower() == "c":
+        tambah_data()
+        input_data()
+    elif x.lower() == "r":
+        cetak_daftar_nilai()
+    elif x.lower() == "u":
+        ubah_data()
+    elif x.lower() == "d":
+        hapus_data()
+    elif x.lower() == "s":
+        cari_data()
+        cetak_hasil_pencarian()
+    elif x.lower() == "q":
+        print('Anda sudah keluar dari program')
+        break
+    else:
+        print('Pilih menu yang tersedia di atas')
